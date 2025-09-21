@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="googlebot-news" content="notranslate">
+    <meta name="description" content="Eli Class: A specialized IT training platform offering online courses. Master programming, Python, Excel, and more with our instructors.">
+    <title>Eli Class</title>
+    <link rel="icon" href="source/eliclass.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="Accueil.html" target="Principal"><img href="index.html" src="source/eliclass.png" alt="Eli Class" width="80"></a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="Accueil.html" target="Principal" class="active">Home</a></li>
+                    <li><a href="courses.html" target="Principal">Our Offers</a></li>
+                    <li><a href="#" target="Principal">About Eli Class</a></li>
+                    <li><a href="#" target="Principal">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="pages/auth/login.html" class="btn login-btn">Login</a>
+                <a href="pages/auth/register.html" class="btn register-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+    <section>
+        <iframe src="Accueil.html" name="Principal" title="Main Area"></iframe>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Start Your Programming Journey?</h2>
+            <p>Register now and get 20% off your first course!</p>
+            <a href="register.html" class="btn cta-btn">Start Learning Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><img src="source/eliclass.png" alt="Eli Class" width="80"></h3>
+                    <p>Our platform offers a complete and new experience in learning programming for students or anyone interested in developing their IT skills.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Our Offers</a></li>
+                        <li><a href="#">About Eli Class</a></li>
+                        <li><a href="register.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61572584305078"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/synta.academy/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@synta.academy"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Eli Class. All Rights Reserved 2025</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        function resizeIframe() {
+            const iframe = document.querySelector('iframe[name="Principal"]');
+            if (iframe && iframe.contentWindow) {
+                try {
+                    // Get the height of the content inside the iframe
+                    const height = iframe.contentWindow.document.body.scrollHeight;
+                    iframe.style.height = height + 'px'; // Apply new height
+                } catch (e) {
+                    console.error("Cannot access iframe content (cross-origin restriction)");
+                }
+            }
+        }
+
+        // Resize on initial load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when navigation occurs (for links targeting the iframe)
+        const links = document.querySelectorAll('a[target="Principal"]');
+        links.forEach(link => {
+            link.addEventListener('click', () => setTimeout(resizeIframe, 500));
+        });
+
+        // Optional: Resize on iframe content changes (if same domain)
+        const iframe = document.querySelector('iframe[name="Principal"]');
+        if (iframe) {
+            iframe.addEventListener('load', resizeIframe);
+        }
+    </script>
+</body>
+</html>
