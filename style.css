@@ -2,7 +2,7 @@
 :root {
     --primary-color: #013047;
     --text-color: #219EBC;
-    --secondary-color: #4e1ff6;
+    --secondary-color: #F6851F;
     --light-bg: #f8f9fa;
     --dark-text: #333;
     --light-text: #fff;
@@ -265,11 +265,11 @@ main {
 }
 
 .hero-image {
-    flex: 0;
+    flex: 1;
 }
 
 .hero-image img {
-    max-width: 100%;
+    max-width: 105%;
 }
 
 /* ====== Courses Section ====== */
@@ -866,8 +866,4 @@ footer {
         align-items: center; /* This centers the cards horizontally */
         padding: 0 1rem;
     }
-}
-body, .container, .footer-grid, .testimonials-grid {
-    direction: ltr;
-    text-align: left;
 }

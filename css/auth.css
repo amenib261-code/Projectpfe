@@ -20,13 +20,14 @@ body {
     font-family: 'Tajawal', sans-serif;
     background-color: var(--light-bg);
     color: var(--text-color);
-    direction: ltr;
+    direction: rtl;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     line-height: 1.6;
 }
 
+/* Auth Section */
 .auth-section {
     flex: 1;
     display: flex;
@@ -44,7 +45,6 @@ body {
 
 .auth-container {
     display: flex;
-    flex-direction: row-reverse; /* Image on right, form on left */
     background-color: var(--light-text);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -71,8 +71,6 @@ body {
 .auth-form {
     flex: 1;
     padding: 50px;
-    direction: ltr;
-    text-align: left;
 }
 
 .auth-form h2 {
@@ -288,14 +286,14 @@ body {
     .auth-container {
         flex-direction: column;
     }
+    
     .auth-image {
         min-height: 200px;
         padding: 1rem;
-        order: 0; /* Image on top */
     }
+    
     .auth-form {
         padding: 2rem;
-        order: 1;
     }
 }
 
@@ -332,4 +330,4 @@ body {
     .message {
         margin-left: 0;
     }
-}
+} 
