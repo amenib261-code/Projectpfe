@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Eli Class & Contact Us</title>
+    <link rel="icon" href="source/eliclass.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .about-section, .contact-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            margin: 40px auto;
+            max-width: 900px;
+            padding: 40px 30px;
+        }
+        .about-section h2, .contact-section h2 {
+            color: #1565c0;
+            margin-bottom: 18px;
+        }
+        .about-section p {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .contact-section form {
+            margin-top: 20px;
+        }
+        .contact-section label {
+            display: block;
+            margin-bottom: 6px;
+            color: #1565c0;
+            font-weight: 500;
+        }
+        .contact-section input, .contact-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .contact-section button {
+            background: #1565c0;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .contact-section button:hover {
+            background: #0d47a1;
+        }
+        .contact-info {
+            margin-top: 24px;
+        }
+        .contact-info a {
+            color: #ff9800;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <section class="about-section">
+        <h2>About Eli Class</h2>
+        <p><strong>Eli Class</strong> is a modern online platform dedicated to providing high-quality IT and programming education for students and lifelong learners. Our mission is to make technology and programming accessible, engaging, and effective for everyone, regardless of their background or experience level.</p>
+        <p>We offer a variety of courses in programming, algorithms, web development, and essential IT skills, all taught by experienced instructors. Our interactive lessons, practical exercises, and supportive community help learners achieve their goals and succeed in the digital world.</p>
+        <p>Whether you are preparing for exams, looking to boost your career, or simply want to learn something new, Eli Class is here to guide you every step of the way.</p>
+    </section>
+
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Have a question, suggestion, or need support? Fill out the form below or reach us through our social channels.</p>
+        <form id="contactForm" autocomplete="off">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-info">
+            <p>Or contact us directly:</p>
+            <a href="mailto:support@eliclass.com">support@eliclass.com</a>
+            <a href="https://www.facebook.com/profile.php?id=61572584305078" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/synta.academy/" target="_blank">Instagram</a>
+            <a href="https://www.tiktok.com/@synta.academy" target="_blank">TikTok</a>
+        </div>
+    </section>
+    <script>
+        // Simple form handler (demo only)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for contacting Eli Class! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

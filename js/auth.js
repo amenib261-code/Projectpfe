@@ -47,7 +47,7 @@ async function handleLogin(e) {
     const submitBtn = e.target.querySelector('button[type="submit"]');
     
     if (!email || !password) {
-        showMessage('يرجى ملء جميع الحقول', 'error');
+        showMessage('Please fill in all fields', 'error');
         return;
     }
     
@@ -68,7 +68,7 @@ async function handleLogin(e) {
         const result = await window.auth.signIn(email, password);
         
         if (result.success) {
-            showMessage('تم تسجيل الدخول بنجاح!', 'success');
+            showMessage('Logged in successfully!', 'success');
             setTimeout(() => {
                 window.location.href = '../../user.html';
             }, 1500);
@@ -77,7 +77,7 @@ async function handleLogin(e) {
         }
     } catch (error) {
         console.error('Login error:', error);
-        showMessage('خطأ في تحميل نظام المصادقة. يرجى تحديث الصفحة والمحاولة مرة أخرى.', 'error');
+        showMessage('Error loading authentication system. Please refresh the page and try again.', 'error');
     } finally {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
@@ -97,17 +97,17 @@ async function handleRegister(e) {
     
     // Validate inputs
     if (!email || !password || !fullName || !phone || !userClass || !userBranch) {
-        showMessage('يرجى ملء جميع الحقول', 'error');
+        showMessage('Please fill in all fields', 'error');
         return;
     }
-    
+
     if (!validateEmail(email)) {
-        showMessage('يرجى إدخال بريد إلكتروني صحيح', 'error');
+        showMessage('Please enter a valid email address', 'error');
         return;
     }
-    
+
     if (!validatePassword(password)) {
-        showMessage('يجب أن تكون كلمة المرور 6 أحرف على الأقل', 'error');
+        showMessage('Password must be at least 6 characters', 'error');
         return;
     }
     
@@ -142,9 +142,9 @@ async function handleRegister(e) {
             popup.innerHTML = `
                 <div class="popup-content">
                     <div class="popup-icon">✅</div>
-                    <h3>تم إنشاء الحساب بنجاح!</h3>
-                    <p>يمكنك الآن تسجيل الدخول باستخدام بريدك الإلكتروني وكلمة المرور</p>
-                    <button onclick="window.location.href='login.html'" class="popup-button">تسجيل الدخول</button>
+                    <h3>Account created successfully!</h3>
+                    <p>You can now log in using your email and password.</p>
+                    <button onclick="window.location.href='login.html'" class="popup-button">Login</button>
                 </div>
             `;
             document.body.appendChild(popup);
@@ -215,7 +215,7 @@ async function handleRegister(e) {
         }
     } catch (error) {
         console.error('Register error:', error);
-        showMessage('حدث خطأ أثناء إنشاء الحساب', 'error');
+        showMessage('An error occurred while creating the account', 'error');
     } finally {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
@@ -229,7 +229,7 @@ async function handlePasswordReset(e) {
     const submitBtn = e.target.querySelector('button[type="submit"]');
     
     if (!email) {
-        showMessage('يرجى إدخال بريدك الإلكتروني', 'error');
+        showMessage('Please enter your email address', 'error');
         return;
     }
     
@@ -250,12 +250,12 @@ async function handlePasswordReset(e) {
         const result = await window.auth.resetPassword(email);
         
         if (result.success) {
-            showMessage('تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني', 'success');
+            showMessage('A reset link has been sent to your email', 'success');
         } else {
             showMessage(result.message, 'error');
         }
     } catch (error) {
-        showMessage('حدث خطأ أثناء إرسال رابط إعادة التعيين', 'error');
+        showMessage('An error occurred while sending the reset link', 'error');
         console.error('Password reset error:', error);
     } finally {
         submitBtn.classList.remove('loading');
@@ -304,19 +304,19 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('blur', function() {
             if (this.value && !validateEmail(this.value)) {
                 this.style.borderColor = '#dc3545';
-                showFieldError(this, 'البريد الإلكتروني غير صحيح');
+                showFieldError(this, 'Invalid email address');
             } else {
                 this.style.borderColor = '#e0e0e0';
                 removeFieldError(this);
             }
         });
     });
-    
+
     passwordInputs.forEach(input => {
         input.addEventListener('blur', function() {
             if (this.value && !validatePassword(this.value)) {
                 this.style.borderColor = '#dc3545';
-                showFieldError(this, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                showFieldError(this, 'Password must be at least 6 characters');
             } else {
                 this.style.borderColor = '#e0e0e0';
                 removeFieldError(this);
@@ -346,4 +346,4 @@ function removeFieldError(input) {
     if (existingError) {
         existingError.remove();
     }
-} 
+}

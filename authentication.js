@@ -62,7 +62,7 @@ function retryInitialization() {
         }, 2000); // Increased timeout to 2 seconds
     } else {
         console.error('Failed to initialize Supabase after maximum attempts');
-        showGlobalError('خطأ في تحميل نظام المصادقة. يرجى تحديث الصفحة والمحاولة مرة أخرى.');
+        showGlobalError('Error loading authentication system. Please refresh the page and try again.');
     }
 }
 
@@ -119,7 +119,7 @@ function initializeAuth() {
      */
     async function signUp(email, password, userData = {}) {
         if (window.authLoading.isRegistering) {
-            return { success: false, error: 'جاري التسجيل بالفعل، يرجى الانتظار...' };
+            return { success: false, error: 'Registration is already in progress, please wait...' };
         }
         
         window.authLoading.isRegistering = true;
@@ -164,7 +164,7 @@ function initializeAuth() {
             return { 
                 success: true, 
                 data, 
-                message: 'تم إنشاء الحساب بنجاح! يمكنك تسجيل الدخول الآن.',
+                message: 'Account created successfully! You can now log in.',
                 requiresEmailConfirmation: false,
                 user: data.user
             };
@@ -184,7 +184,7 @@ function initializeAuth() {
                 return { 
                     success: true, 
                     error: 'ALREADY_REGISTERED',
-                    message: 'أنت مسجل بالفعل! يمكنك تسجيل الدخول مباشرة.',
+                    message: 'You are already registered! You can log in directly.',
                     user: null,
                     redirectTo: 'user.html'
                 };
@@ -193,7 +193,7 @@ function initializeAuth() {
                 return { 
                     success: true, 
                     error: 'ALREADY_REGISTERED',
-                    message: 'أنت مسجل بالفعل! يمكنك تسجيل الدخول مباشرة.',
+                    message: 'You are already registered! You can log in directly.',
                     user: null,
                     redirectTo: 'user.html'
                 };
@@ -201,27 +201,27 @@ function initializeAuth() {
                 userFriendlyError = 'التسجيل معطل حالياً. يرجى التواصل مع إدارة الموقع لتفعيل التسجيل.';
                 errorType = 'SIGNUPS_DISABLED';
             } else if (error.message && error.message.includes('Invalid email')) {
-                userFriendlyError = 'البريد الإلكتروني غير صحيح. يرجى التحقق من صحة البريد الإلكتروني.';
+                userFriendlyError = 'Invalid email address. Please check your email address.';
                 errorType = 'INVALID_EMAIL';
             } else if (error.message && error.message.includes('password')) {
-                userFriendlyError = 'كلمة المرور يجب أن تكون أقوى. يرجى استخدام 8 أحرف على الأقل.';
+                userFriendlyError = 'Password must be stronger. Please use at least 8 characters.';
                 errorType = 'WEAK_PASSWORD';
             } else if (error.message && error.message.includes('network')) {
-                userFriendlyError = 'خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.';
+                userFriendlyError = 'Connection error. Please check your internet connection and try again.';
                 errorType = 'NETWORK_ERROR';
             } else if (error.message && error.message.includes('Too many requests')) {
-                userFriendlyError = 'تم تجاوز عدد المحاولات المسموح. يرجى الانتظار قليلاً والمحاولة مرة أخرى.';
+                userFriendlyError = 'Too many attempts. Please wait a moment and try again.';
                 errorType = 'RATE_LIMIT';
             } else if (error.message && error.message.includes('400')) {
-                userFriendlyError = 'خطأ في طلب التسجيل. يرجى التحقق من البيانات والمحاولة مرة أخرى.';
+                userFriendlyError = 'Registration request error. Please check your data and try again.';
                 errorType = 'BAD_REQUEST';
             } else if (error.message && error.message.includes('422')) {
-                userFriendlyError = 'البيانات غير صحيحة. يرجى التحقق من جميع الحقول.';
+                userFriendlyError = 'Invalid data. Please check all fields.';
                 errorType = 'VALIDATION_ERROR';
             } else {
                 // Log the actual error for debugging
                 console.log('Unhandled signup error:', error.message);
-                userFriendlyError = 'حدث خطأ غير متوقع أثناء التسجيل. يرجى المحاولة مرة أخرى.';
+                userFriendlyError = 'An unexpected error occurred during registration. Please try again.';
                 errorType = 'UNKNOWN_ERROR';
             }
             
@@ -244,7 +244,7 @@ function initializeAuth() {
      */
     async function signIn(email, password) {
         if (window.authLoading.isLoggingIn) {
-            return { success: false, error: 'جاري تسجيل الدخول بالفعل، يرجى الانتظار...' };
+            return { success: false, error: 'Login is already in progress, please wait...' };
         }
         
         window.authLoading.isLoggingIn = true;
@@ -267,7 +267,7 @@ function initializeAuth() {
                     return { 
                         success: false, 
                         error: 'INVALID_CREDENTIALS',
-                        message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.'
+                        message: 'Email or password is incorrect. Please try again.'
                     };
                 } else if (error.message && error.message.includes('400')) {
                     // Handle 400 Bad Request specifically
@@ -275,7 +275,7 @@ function initializeAuth() {
                     return { 
                         success: false, 
                         error: 'BAD_REQUEST',
-                        message: 'خطأ في طلب تسجيل الدخول. يرجى التحقق من البيانات والمحاولة مرة أخرى.',
+                        message: 'Login request error. Please check your data and try again.',
                         details: error
                     };
                 }
@@ -286,30 +286,30 @@ function initializeAuth() {
             return { 
                 success: true, 
                 data, 
-                message: 'تم تسجيل الدخول بنجاح!',
+                message: 'Logged in successfully!',
                 user: data.user
             };
         } catch (error) {
             console.error('Sign in error:', error);
             
             // Enhanced error messages without email confirmation handling
-            let userFriendlyError = 'حدث خطأ أثناء تسجيل الدخول';
+            let userFriendlyError = 'An error occurred during login';
             let errorType = 'GENERAL_ERROR';
             
             if (error.message && error.message.includes('Invalid login credentials')) {
-                userFriendlyError = 'البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.';
+                userFriendlyError = 'Email or password is incorrect. Please try again.';
                 errorType = 'INVALID_CREDENTIALS';
             } else if (error.message && error.message.includes('400')) {
-                userFriendlyError = 'خطأ في طلب تسجيل الدخول. يرجى التحقق من البيانات والمحاولة مرة أخرى.';
+                userFriendlyError = 'Login request error. Please check your data and try again.';
                 errorType = 'BAD_REQUEST';
             } else if (error.message && error.message.includes('network')) {
-                userFriendlyError = 'خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.';
+                userFriendlyError = 'Connection error. Please check your internet connection and try again.';
                 errorType = 'NETWORK_ERROR';
             } else if (error.message && error.message.includes('Too many requests')) {
-                userFriendlyError = 'تم تجاوز عدد المحاولات المسموح. يرجى الانتظار قليلاً والمحاولة مرة أخرى.';
+                userFriendlyError = 'Too many attempts. Please wait a moment and try again.';
                 errorType = 'RATE_LIMIT';
             } else if (error.message && error.message.includes('User not found')) {
-                userFriendlyError = 'البريد الإلكتروني غير مسجل في النظام. يرجى التحقق من صحة البريد الإلكتروني.';
+                userFriendlyError = 'The email is not registered in the system. Please check your email address.';
                 errorType = 'USER_NOT_FOUND';
             }
             
@@ -336,12 +336,12 @@ function initializeAuth() {
                 throw error;
             }
 
-            return { success: true, message: 'تم تسجيل الخروج بنجاح!' };
+            return { success: true, message: 'Logged out successfully!' };
         } catch (error) {
             console.error('Sign out error:', error);
             return { 
                 success: false, 
-                error: error.message || 'حدث خطأ أثناء تسجيل الخروج',
+                error: error.message || 'An error occurred during logout',
                 details: error
             };
         }
@@ -354,7 +354,7 @@ function initializeAuth() {
      */
     async function resetPassword(email) {
         if (window.authLoading.isResettingPassword) {
-            return { success: false, error: 'جاري إرسال البريد بالفعل، يرجى الانتظار...' };
+            return { success: false, error: 'The email is already being sent, please wait...' };
         }
         
         window.authLoading.isResettingPassword = true;
@@ -371,17 +371,17 @@ function initializeAuth() {
             return { 
                 success: true, 
                 data, 
-                message: 'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني!'
+                message: 'A password reset link has been sent to your email!'
             };
         } catch (error) {
             console.error('Password reset error:', error);
             
-            let userFriendlyError = 'حدث خطأ أثناء إرسال رابط إعادة تعيين كلمة المرور';
+            let userFriendlyError = 'An error occurred while sending the password reset link';
             
             if (error.message.includes('User not found')) {
-                userFriendlyError = 'البريد الإلكتروني غير مسجل في النظام. يرجى التحقق من صحة البريد الإلكتروني.';
+                userFriendlyError = 'The email is not registered in the system. Please check your email address.';
             } else if (error.message.includes('network')) {
-                userFriendlyError = 'خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.';
+                userFriendlyError = 'Connection error. Please check your internet connection and try again.';
             }
             
             return { 
@@ -437,12 +437,12 @@ function initializeAuth() {
                 throw error;
             }
 
-            return { success: true, data, message: 'تم تحديث الملف الشخصي بنجاح!' };
+            return { success: true, data, message: 'Profile updated successfully!' };
         } catch (error) {
             console.error('Update profile error:', error);
             return { 
                 success: false, 
-                error: error.message || 'حدث خطأ أثناء تحديث الملف الشخصي',
+                error: error.message || 'An error occurred while updating the profile',
                 details: error
             };
         }
@@ -498,4 +498,4 @@ function initializeAuth() {
     };
     
     console.log('Authentication system initialized and ready!', window.auth);
-} 
+}

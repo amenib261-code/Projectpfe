@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     padding: 2rem;
     overflow: hidden;
+    direction: ltr; /* Ensure LTR layout */
 }
 
 .dashboard-container {
@@ -28,6 +29,7 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid #f0f0f0;
     flex-shrink: 0;
+    text-align: left; /* Ensure header content is left-aligned */
 }
 
 .welcome-section {
@@ -35,12 +37,15 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
+    flex-direction: row; /* LTR: avatar/info on left, date on right */
+    text-align: left;
 }
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-direction: row; /* LTR: avatar left, details right */
 }
 
 .user-avatar {
@@ -61,16 +66,18 @@ body {
     margin-bottom: 0.5rem;
     font-family: 'Tajawal', sans-serif;
     font-weight: 700;
+    text-align: left;
 }
 
 .user-details p {
     color: #666;
     font-family: 'Tajawal', sans-serif;
     font-weight: 400;
+    text-align: left;
 }
 
 .date-info {
-    text-align: left;
+    text-align: right; /* Date/time on the right in LTR */
     color: #666;
     font-family: 'Tajawal', sans-serif;
 }
@@ -80,6 +87,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
+    text-align: left;
 }
 
 .stat-card {
@@ -87,7 +95,7 @@ body {
     color: white;
     padding: 1rem;
     border-radius: 15px;
-    text-align: center;
+    text-align: left;
 }
 
 .stat-number {
@@ -135,6 +143,7 @@ body {
     border-radius: 20px;
     padding: 2rem;
     border-left: 5px solid #ff7b1a;
+    text-align: left;
 }
 
 .section-title {
@@ -146,6 +155,7 @@ body {
     gap: 0.5rem;
     font-family: 'Tajawal', sans-serif;
     font-weight: 700;
+    text-align: left;
 }
 
 .actions-grid {
@@ -195,6 +205,7 @@ body {
     border-radius: 20px;
     padding: 2rem;
     border-left: 5px solid #28a745;
+    text-align: left;
 }
 
 .activity-item {
@@ -203,6 +214,7 @@ body {
     gap: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid #e0e0e0;
+    flex-direction: row; /* LTR: icon left, content right */
 }
 
 .activity-item:last-child {
@@ -226,6 +238,7 @@ body {
     margin-bottom: 0.3rem;
     font-family: 'Tajawal', sans-serif;
     font-weight: 700;
+    text-align: left;
 }
 
 .activity-content p {
@@ -233,6 +246,7 @@ body {
     font-size: 0.9rem;
     font-family: 'Tajawal', sans-serif;
     font-weight: 400;
+    text-align: left;
 }
 
 .sidebar {
@@ -246,6 +260,7 @@ body {
     border-radius: 20px;
     padding: 2rem;
     border-left: 5px solid #007bff;
+    text-align: left;
 }
 
 .progress-item {
@@ -291,6 +306,7 @@ body {
     border-radius: 20px;
     padding: 2rem;
     border-left: 5px solid #dc3545;
+    text-align: left;
 }
 
 .event-item {
@@ -376,7 +392,7 @@ body {
     
     .welcome-section {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
         gap: 1rem;
     }
     
@@ -387,4 +403,4 @@ body {
     .actions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-} 
+}

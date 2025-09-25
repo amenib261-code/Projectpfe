@@ -1,0 +1,119 @@
+/* Use a light background and center content */
+body {
+    font-family: 'Tajawal', Arial, sans-serif;
+    background: linear-gradient(135deg, #1565c0 0%, #fff 100%);
+    max-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Shared section styles for about and contact */
+.about-section,
+.contact-section {
+    background: rgba(255,255,255,0.97);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 1100px;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.about-section h2,
+.contact-section h2 {
+    color: #1565c0;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.about-section p,
+.contact-section p {
+    color: #333;
+    font-size: 1.08rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.contact-section form {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.contact-section label {
+    color: #1565c0;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    text-align: left;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #fafbfc;
+    resize: none;
+}
+
+.contact-section button {
+    background: #1565c0;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 0;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+}
+
+.contact-section button:hover {
+    background: #0d47a1;
+}
+
+.contact-info {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.contact-info a {
+    color: #ff9800;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: 500;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 0.5rem;
+    }
+    .about-section,
+    .contact-section {
+        padding: 1rem 0.5rem;
+        max-width: 98vw;
+    }
+    .about-section h2,
+    .contact-section h2 {
+        font-size: 1.3rem;
+    }
+}
