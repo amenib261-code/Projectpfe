@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sessions - Synta Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <style>
+    .sessions-container { display: grid; gap: 16px; }
+    .sessions-header { display:flex; justify-content: space-between; align-items:center; }
+    .filters { display:flex; gap: 10px; align-items:center; }
+    .filters select, .filters input { padding: 8px 10px; border:1px solid #ddd; border-radius:10px; font-family:'Tajawal', sans-serif; }
+    .session-card { background:#fff; border:1px solid #e9ecef; border-radius:14px; padding:16px; display:grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .session-info h3 { margin:0 0 6px; font-size: 18px; }
+    .session-meta { color:#6c757d; font-size: 0.95rem; display:flex; gap:10px; flex-wrap:wrap; }
+    .badge { padding:4px 10px; border-radius:999px; background:#fff3e0; color:#F6851F; font-weight:600; font-size: 12px; }
+    .actions { display:flex; gap:8px; align-items:center; }
+    .btn { padding:8px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-family:'Tajawal', sans-serif; }
+    .btn.primary { background: linear-gradient(45deg, #ff7b1a, #ffa500); color:#fff; }
+    .btn.secondary { background:#eef1f4; color:#333; }
+    .empty { background:#fff; border:1px dashed #e0e0e0; border-radius:14px; padding:20px; text-align:center; color:#6c757d; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-content">
+      <div class="card">
+        <div class="sessions-header">
+          <h2 class="section-title">📅 Class Sessions</h2>
+          <div class="filters">
+            <select id="filter-class">
+              <option value="">All Classes</option>
+              <option value="2eme">2ème année</option>
+              <option value="3eme">3ème année</option>
+              <option value="bac">Bac informatique</option>
+            </select>
+            <select id="filter-teacher">
+              <option value="">All Teachers</option>
+            </select>
+            <input type="date" id="filter-date" />
+          </div>
+        </div>
+
+        <div id="sessions-list" class="sessions-container">
+          <div class="empty">No sessions yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="../../authentication.js"></script>
+  <script src="../../js/sessions.js"></script>
+</body>
+</html>
+
+

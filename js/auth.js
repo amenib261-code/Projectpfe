@@ -347,3 +347,18 @@ function removeFieldError(input) {
         existingError.remove();
     }
 }
+
+// Exports for testing in Node/Jest environment (has no effect in browser)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        waitForAuth,
+        handleLogin,
+        handleRegister,
+        handlePasswordReset,
+        showMessage,
+        validateEmail,
+        validatePassword,
+        showFieldErr  or,
+        removeFieldError
+    };
+}   

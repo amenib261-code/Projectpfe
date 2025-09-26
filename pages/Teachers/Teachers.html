@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers Management - Synta Academy</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+  <style>
+    .teachers-container { display: grid; gap: 16px; }
+    .teachers-header { display:flex; justify-content: space-between; align-items:center; position: sticky; top: 0; z-index: 20; background: transparent; padding: 16px 0; border-bottom: 1px solid #e9ecef; }
+    .section-title { position: sticky; top: 0; z-index: 25; background: transparent; padding: 8px 0; margin: 0; }
+    .filters { display:flex; gap: 10px; align-items:center; }
+    .filters select, .filters input { padding: 8px 10px; border:1px solid #ddd; border-radius:10px; font-family:'Tajawal', sans-serif; }
+    .table-container { background:#fff; border-radius:14px; overflow:hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .teachers-table { width:100%; border-collapse:collapse; font-family:'Tajawal', sans-serif; }
+    .teachers-table th { background:#f8f9fa; padding:16px 12px; text-align:left; font-weight:600; color:#333; border-bottom:2px solid #e9ecef; }
+    .teachers-table td { padding:16px 12px; border-bottom:1px solid #e9ecef; color:#555; }
+    .teachers-table tr:hover { background:#f8f9fa; }
+    .teachers-table tr:last-child td { border-bottom:none; }
+    .badge { padding:4px 10px; border-radius:999px; background:#fff3e0; color:#F6851F; font-weight:600; font-size: 12px; }
+    .actions { display:flex; gap:8px; align-items:center; }
+    .btn { padding:8px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-family:'Tajawal', sans-serif; }
+    .btn.primary { background: linear-gradient(45deg, #ff7b1a, #ffa500); color:#fff; }
+    .btn.secondary { background:#eef1f4; color:#333; }
+    .empty { background:#fff; border:1px dashed #e0e0e0; border-radius:14px; padding:20px; text-align:center; color:#6c757d; }
+    .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .pagination-info { color: #666; font-size: 14px; }
+    .pagination-buttons { display: flex; align-items: center; gap: 12px; }
+    .page-numbers { display: flex; gap: 8px; }
+    .page-number { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-size: 14px; background: #fff; }
+    .page-number.active { background: linear-gradient(45deg, #ff7b1a, #ffa500); color: #fff; border-color: #ff7b1a; }
+    .page-number:hover:not(.active) { background: #f8f9fa; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; width: min(600px, 95vw); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; font-family: 'Tajawal', sans-serif; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #eee; background: #fafafa; }
+    .modal-header h3 { margin: 0; font-size: 18px; }
+    .modal-close { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+    .modal-body { padding: 20px; }
+    .modal-footer { padding: 16px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; justify-content: flex-end; background: #fafafa; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 14px; color: #444; font-weight: 500; }
+    .form-group input, .form-group select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; font-family: 'Tajawal', sans-serif; }
+    .form-group input:focus, .form-group select:focus { border-color: #ff7b1a; box-shadow: 0 0 0 3px rgba(255,123,26,0.1); }
+    .password-hint { font-size: 12px; color: #666; margin-top: 4px; }
+    .modal-message { display:none; margin: 0 0 16px; padding:12px; border-radius:8px; font-size:14px; }
+    .modal-message.error { background: rgba(220,53,69,.1); color:#dc3545; border:1px solid rgba(220,53,69,.2); }
+    .modal-message.success { background: rgba(40,167,69,.1); color:#28a745; border:1px solid rgba(40,167,69,.2); }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    body.modal-open { overflow: hidden; }
+  </style>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-content">
+      <div class="card">
+        <div class="teachers-header">
+          <h2 class="section-title">👨‍🏫 Teachers Management</h2>
+          <div class="filters">
+            <select id="filter-subject">
+              <option value="">All Subjects</option>
+              <option value="programming">Programming</option>
+              <option value="mathematics">Mathematics</option>
+              <option value="science">Science</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="text" id="search-teachers" placeholder="Search teachers..." />
+            <button class="btn primary" id="add-teacher-btn">+ Add Teacher</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="teachers-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Subject</th>
+                <th>Class</th>
+                <th>Experience</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teachers-list">
+              <tr><td colspan="8" class="empty">No teachers yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination-container">
+          <div class="pagination-info">
+            <span id="teachers-pagination-info">Showing 0 of 0 teachers</span>
+          </div>
+          <div class="pagination-buttons">
+            <button class="btn secondary" id="prev-teachers-page-btn" disabled>← Previous</button>
+            <span class="page-numbers" id="teachers-page-numbers"></span>
+            <button class="btn secondary" id="next-teachers-page-btn" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="../../authentication.js"></script>
+  <script src="../../js/teachers.js"></script>
+</body>
+</html> 

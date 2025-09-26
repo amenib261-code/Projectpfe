@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Management - Synta Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+  <style>
+    .students-header { display:flex; justify-content: space-between; align-items:center; position: sticky; top: 0; z-index: 20; background: transparent; padding: 16px 0; border-bottom: 1px solid #e9ecef; }
+    .section-title { position: sticky; top: 0; z-index: 25; background: transparent; padding: 8px 0; margin: 0; }
+    .filters { display:flex; gap: 10px; align-items:center; }
+    .filters select, .filters input { padding: 8px 10px; border:1px solid #ddd; border-radius:10px; font-family:'Tajawal', sans-serif; }
+    .table-container { background:#fff; border-radius:14px; overflow:hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .students-table { width:100%; border-collapse:collapse; font-family:'Tajawal', sans-serif; }
+    .students-table th { background:#f8f9fa; padding:16px 12px; text-align:left; font-weight:600; color:#333; border-bottom:2px solid #e9ecef; }
+    .students-table td { padding:16px 12px; border-bottom:1px solid #e9ecef; color:#555; }
+    .students-table tr:hover { background:#f8f9fa; }
+    .students-table tr:last-child td { border-bottom:none; }
+    .badge { padding:4px 10px; border-radius:999px; background:#fff3e0; color:#F6851F; font-weight:600; font-size: 12px; }
+    .actions { display:flex; gap:8px; align-items:center; }
+    .btn { padding:6px 12px; border:none; border-radius:8px; cursor:pointer; font-weight:600; font-family:'Tajawal', sans-serif; font-size:12px; }
+    .btn.primary { background: linear-gradient(45deg, #ff7b1a, #ffa500); color:#fff; }
+    .btn.secondary { background:#eef1f4; color:#333; }
+    .empty { text-align:center; color:#6c757d; padding:40px; font-style:italic; }
+    .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .pagination-info { color: #666; font-size: 14px; }
+    .pagination-buttons { display: flex; align-items: center; gap: 12px; }
+    .page-numbers { display: flex; gap: 8px; }
+    .page-number { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-size: 14px; background: #fff; }
+    .page-number.active { background: linear-gradient(45deg, #ff7b1a, #ffa500); color: #fff; border-color: #ff7b1a; }
+    .page-number:hover:not(.active) { background: #f8f9fa; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; width: min(700px, 95vw); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; font-family: 'Tajawal', sans-serif; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #eee; background: #fafafa; }
+    .modal-header h3 { margin: 0; font-size: 18px; }
+    .modal-close { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+    .modal-body { padding: 20px; }
+    .modal-footer { padding: 16px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; justify-content: flex-end; background: #fafafa; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 14px; color: #444; font-weight: 500; }
+    .form-group input, .form-group select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; font-family: 'Tajawal', sans-serif; }
+    .form-group input:focus, .form-group select:focus { border-color: #ff7b1a; box-shadow: 0 0 0 3px rgba(255,123,26,0.1); }
+    .password-hint { font-size: 12px; color: #666; margin-top: 4px; }
+    .modal-message { display:none; margin: 0 0 16px; padding:12px; border-radius:8px; font-size:14px; }
+    .modal-message.error { background: rgba(220,53,69,.1); color:#dc3545; border:1px solid rgba(220,53,69,.2); }
+    .modal-message.success { background: rgba(40,167,69,.1); color:#28a745; border:1px solid rgba(40,167,69,.2); }
+    
+    /* Student Details Styles */
+    .student-details { display: flex; flex-direction: column; gap: 16px; }
+    .detail-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row label { font-weight: 600; color: #333; min-width: 120px; margin-right: 16px; }
+    .detail-row span { color: #555; flex: 1; }
+    .password-section { margin-top: 20px; padding-top: 20px; border-top: 2px solid #f0f0f0; }
+    .password-section h4 { margin: 0 0 16px; color: #333; font-size: 16px; }
+    
+    @media (max-width: 600px) { 
+      .form-row { grid-template-columns: 1fr; }
+      .detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .detail-row label { min-width: auto; margin-right: 0; }
+    }
+    body.modal-open { overflow: hidden; }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-content">
+      <div class="card">
+        <div class="students-header">
+          <h2 class="section-title">👨‍🎓 Students Management</h2>
+          <div class="filters">
+            <select id="filter-class">
+              <option value="">All Classes</option>
+              <option value="2eme">2ème année</option>
+              <option value="3eme">3ème année</option>
+              <option value="bac">Bac informatique</option>
+            </select>
+            <input type="text" id="search-students" placeholder="Search students..." />
+            <button class="btn primary" id="add-student-btn">+ Add Student</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="students-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Class</th>
+                <th>Branch</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-list">
+              <tr>
+                <td colspan="7" class="empty">Loading students...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination-container">
+          <div class="pagination-info">
+            <span id="students-pagination-info">Showing 0 of 0 students</span>
+          </div>
+          <div class="pagination-buttons">
+            <button class="btn secondary" id="prev-page-btn" disabled>← Previous</button>
+            <span class="page-numbers" id="page-numbers"></span>
+            <button class="btn secondary" id="next-page-btn" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- View/Edit Student Modal -->
+  <div class="modal-overlay" id="view-edit-student-modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="viewEditStudentModalTitle">
+      <div class="modal-header">
+        <h3 id="viewEditStudentModalTitle">Student Information</h3>
+        <button type="button" class="modal-close" id="close-view-edit-student-modal" onclick="closeViewEditModal()" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="view-edit-modal-message" class="modal-message" role="alert" aria-live="assertive"></div>
+        
+        <!-- View Mode -->
+        <div id="student-view-mode">
+          <div class="student-details">
+            <div class="detail-row">
+              <label>Full Name:</label>
+              <span id="view-fullname"></span>
+            </div>
+            <div class="detail-row">
+              <label>Email:</label>
+              <span id="view-email"></span>
+            </div>
+            <div class="detail-row">
+              <label>Phone:</label>
+              <span id="view-phone"></span>
+            </div>
+            <div class="detail-row">
+              <label>Class:</label>
+              <span id="view-class"></span>
+            </div>
+            <div class="detail-row">
+              <label>Branch:</label>
+              <span id="view-branch"></span>
+            </div>
+            <div class="detail-row">
+              <label>Student ID:</label>
+              <span id="view-id"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div id="student-edit-mode" style="display: none;">
+          <form id="edit-student-form" class="auth-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-fullname">Full Name</label>
+                <input type="text" id="edit-fullname" placeholder="Enter full name" required>
+              </div>
+              <div class="form-group">
+                <label for="edit-email">Email Address</label>
+                <input type="email" id="edit-email" placeholder="example@mail.com" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-phone">Phone Number</label>
+                <input type="tel" id="edit-phone" placeholder="e.g., 50123456">
+              </div>
+              <div class="form-group">
+                <label for="edit-class">Academic Level</label>
+                <select id="edit-class" required>
+                  <option value="">Select Level</option>
+                  <option value="2eme">2ème année</option>
+                  <option value="3eme">3ème année</option>
+                  <option value="bac">Bac informatique</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="edit-branch">Branch</label>
+              <select id="edit-branch" required>
+                <option value="">Select Branch</option>
+                <option value="informatique">IT</option>
+                <option value="sciences">Science</option>
+                <option value="technique">Technical</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Password Change Section -->
+            <div class="password-section">
+              <h4>Change Password</h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="edit-password">New Password</label>
+                  <input type="password" id="edit-password" placeholder="••••••••" minlength="6">
+                  <span class="password-hint">Leave empty to keep current password</span>
+                </div>
+                <div class="form-group">
+                  <label for="edit-password2">Confirm New Password</label>
+                  <input type="password" id="edit-password2" placeholder="••••••••" minlength="6">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn secondary" id="cancel-view-edit-student" onclick="closeViewEditModal()">Cancel</button>
+        <button type="button" class="btn secondary" id="edit-student-btn" onclick="switchToEditMode()">Edit</button>
+        <button type="submit" class="btn primary" form="edit-student-form" id="save-student-btn" style="display: none;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="../../authentication.js"></script>
+  <script src="../../js/students.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* Inherit same dashboard theme */
+@import url('dashboard.css');
+
+.student-card {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 2rem;
+  border-left: 5px solid #ff7b1a;
+}
+
+.student-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.student-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.student-actions button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.filter-btn {
+  background: #fff3e0;
+  color: #ff7b1a;
+}
+
+.add-btn {
+  background: linear-gradient(45deg, #ff7b1a, #ffa500);
+  color: white;
+}
+
+.student-actions input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.student-table th, 
+.student-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.student-table th {
+  background: #fafafa;
+  color: #333;
+  font-weight: 700;
+}
+
+.student-table td img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.icons i {
+  margin-right: 12px;
+  cursor: pointer;
+  color: #666;
+  transition: 0.3s;
+}
+
+.icons i:hover {
+  color: #ff7b1a;
+}
+
+tr.selected {
+  background: #fff8f0;
+  border-left: 4px solid #ff7b1a;
+}
+
+.see-more {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.see-more button {
+  background: #fff3e0;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Tajawal', sans-serif;
+  color: #ff7b1a;
+}
+.see-more button:hover {
+  background: #ff7b1a;
+  color: white;
+}
