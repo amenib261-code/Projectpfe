@@ -7,7 +7,8 @@
 
 body {
     font-family: 'Tajawal', sans-serif;
-    background: linear-gradient(135deg, #E1E9E5 0%, #fffff 100%);
+    background: #2A7B9B;
+    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 150, 199, 1) 50%, rgba(122, 192, 245, 1) 100%);
     min-height: 100vh;
     padding: 2rem;
     overflow: hidden;
@@ -404,3 +405,4 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
