@@ -29,17 +29,17 @@
                 <div class="nav-icon"><i class="fas fa-home"></i></div>
                 <span class="nav-text">Dashboard</span>
             </a></li>
-            <li><a href="#" onclick="loadPage('profile')">
-                <div class="nav-icon"><i class="fas fa-user"></i></div>
-                <span class="nav-text">Profile</span>
+            <li><a href="#" onclick="loadPage('student')">
+                <div class="nav-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
+                <span class="nav-text">Students</span>
             </a></li>
             <li><a href="#" onclick="loadPage('courses')">
-                <div class="nav-icon"><i class="fas fa-book"></i></div>
-                <span class="nav-text">Courses</span>
+                <div class="nav-icon"><i class="fa-solid fa-user-tie"></i></div>
+                <span class="nav-text">Teachers</span>
             </a></li>
             <li><a href="#" onclick="loadPage('offers')">
-                <div class="nav-icon"><i class="fas fa-gift"></i></div>
-                <span class="nav-text">Offers</span>
+                <div class="nav-icon"><i class="fa-solid fa-video"></i></div>
+                <span class="nav-text">Sessions</span>
             </a></li>
             <li><a href="#" onclick="loadPage('game')">
                 <div class="nav-icon"><i class="fas fa-gamepad"></i></div>
@@ -58,6 +58,29 @@
     
     <!-- Main Content Area -->
     <section>
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="search-box">
+                <input type="text" placeholder="Search here...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="topbar-actions">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-cog"></i>
+                <div class="user-info">
+                    <div class="topbar-logo">
+                        <i class="fa-solid fa-user-secret admin-avatar-icon"></i>
+                    </div>
+                    <div class="admin-info-text">
+                        <span class="user-name">Admin</span>
+                    </div>
+                </div>
+                <div class="lang-switch">EN</div>
+            </div>
+        </div>
+
+        <!-- Iframe for pages -->
         <iframe src="pages/dashboard/dashboard.html" name="Principal" title="Main Area"></iframe>
     </section>
 

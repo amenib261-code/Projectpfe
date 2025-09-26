@@ -5,8 +5,10 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #ffffff;
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     display: flex;
     overflow: hidden;
@@ -25,6 +27,33 @@ body {
     height: 100vh;
     z-index: 1000;
     overflow-y: auto;
+}
+/* Topbar logo/avatar */
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.logo-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #1a1eff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.logo-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1E3448;
 }
 
 .logo {
@@ -76,7 +105,7 @@ body {
 }
 
 .nav-links a:hover, .nav-links a.active {
-    background: #ff7b1a;
+    background: #1e1aff;
     color: white;
     transform: translateX(-5px);
 }
@@ -123,8 +152,54 @@ iframe[name="Principal"] {
 }
 
 .nav-links a[onclick="logout()"]:hover {
-    background: #ff7b1a;
+    background: #1a57ff;
     color: white;
+}
+
+/* Admin avatar icon: large, orange circle, centered icon */
+.admin-avatar-icon {
+    background: #311aff;
+    color: #fff;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-right: 16px;
+}
+
+/* User info row: icon + text */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1rem;
+}
+
+/* Stack name and role vertically */
+.admin-info-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 56px;
+}
+
+/* Bold user name */
+.user-name {
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: #1E3448;
+    line-height: 1.2;
+}
+
+/* Regular font for role, lighter color */
+.user-role {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #666;
+    margin-top: 2px;
 }
 
 /* Responsive design */
@@ -206,3 +281,5 @@ iframe[name="Principal"]:not([src]) {
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 123, 26, 0.5);
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
