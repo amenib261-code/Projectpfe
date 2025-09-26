@@ -10,7 +10,7 @@ body {
 .profile-container {
     max-width: 1400px;
     margin: 0 auto;
-    background: rgba(255,255,255,0.97);
+    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(122, 192, 245, 1) 100%);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     padding: 2rem;
@@ -410,4 +410,5 @@ body {
     .profile-sidebar {
         gap: 1rem;
     }
+
 } 
