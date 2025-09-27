@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="../../source/logoweb.png" type="image/x-icon">
+    <link rel="icon" href="../../source/eliclass.png" type="image/x-icon">
     <!-- CSS -->
     <link rel="stylesheet" href="../../css/auth.css">
     <!-- Supabase Client Library -->
@@ -26,7 +26,15 @@
                     <h2>Login</h2>
                     <p>Don't have an account? <a href="register.html">Create a new account</a></p>
                     
-                    <form id="loginForm" method="POST">
+                    <!-- Test Account Info -->
+                    <div style="background: #f0f8ff; border: 1px solid #007bff; border-radius: 8px; padding: 12px; margin: 16px 0; font-size: 14px;">
+                        <strong>Test Account for Verification:</strong><br>
+                        <strong>Email:</strong> test@example.com<br>
+                        <strong>Password:</strong> test123456<br>
+                        <small style="color: #666;">This account is automatically created for testing purposes.</small>
+                    </div>
+                    
+                    <form id="loginForm">
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input type="email" id="email" name="email" required>
@@ -43,6 +51,16 @@
                         
                         <button type="submit" class="btn primary-btn btn-block">Login</button>
                     </form>
+                    
+                    <!-- Manual redirect button for testing -->
+                    <div style="margin-top: 16px; text-align: center;">
+                        <button onclick="testRedirect()" class="btn" style="background: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px;">
+                            Go to User Interface (Manual)
+                        </button>
+                        <a href="../../user.html" class="btn" style="background: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 4px; text-decoration: none; display: inline-block;">
+                            Direct Link Test
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,5 +69,54 @@
     <!-- Scripts -->
     <script src="../../authentication.js"></script>
     <script src="../../js/auth.js"></script>
+    
+    <!-- Debug Info -->
+    <script>
+        // Show authentication status
+        setTimeout(() => {
+            const statusDiv = document.createElement('div');
+            statusDiv.style.cssText = 'position: fixed; top: 10px; right: 10px; background: #333; color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 9999; max-width: 300px;';
+            
+            let statusText = 'Auth Status: ';
+            if (window.auth) {
+                statusText += '✅ Ready';
+            } else {
+                statusText += '❌ Not Ready';
+            }
+            
+            statusDiv.innerHTML = statusText;
+            document.body.appendChild(statusDiv);
+            
+            // Update status every 2 seconds
+            setInterval(() => {
+                if (window.auth) {
+                    statusDiv.innerHTML = 'Auth Status: ✅ Ready';
+                    statusDiv.style.background = '#28a745';
+                } else {
+                    statusDiv.innerHTML = 'Auth Status: ❌ Not Ready';
+                    statusDiv.style.background = '#dc3545';
+                }
+            }, 2000);
+        }, 1000);
+        
+        // Test redirect function
+        function testRedirect() {
+            const currentPath = window.location.pathname;
+            console.log('Manual redirect - Current path:', currentPath);
+            
+            let redirectPath = '../../user.html';
+            
+            if (currentPath.includes('/pages/auth/')) {
+                redirectPath = '../../user.html';
+            } else if (currentPath.includes('/pages/')) {
+                redirectPath = '../user.html';
+            } else {
+                redirectPath = 'user.html';
+            }
+            
+            console.log('Manual redirect to:', redirectPath);
+            window.location.href = redirectPath;
+        }
+    </script>
 </body>
 </html>

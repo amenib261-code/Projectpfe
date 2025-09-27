@@ -15,7 +15,7 @@
     .section-title { position: sticky; top: 0; z-index: 25; background: transparent; padding: 8px 0; margin: 0; }
     .filters { display:flex; gap: 10px; align-items:center; }
     .filters select, .filters input { padding: 8px 10px; border:1px solid #ddd; border-radius:10px; font-family:'Tajawal', sans-serif; }
-    .table-container { background:#fff; border-radius:14px; overflow:hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .table-container { background:#fff; border-radius: 20px 20px 0 0; overflow:hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     .teachers-table { width:100%; border-collapse:collapse; font-family:'Tajawal', sans-serif; }
     .teachers-table th { background:#f8f9fa; padding:16px 12px; text-align:left; font-weight:600; color:#333; border-bottom:2px solid #e9ecef; }
     .teachers-table td { padding:16px 12px; border-bottom:1px solid #e9ecef; color:#555; }
@@ -24,15 +24,16 @@
     .badge { padding:4px 10px; border-radius:999px; background:#fff3e0; color:#F6851F; font-weight:600; font-size: 12px; }
     .actions { display:flex; gap:8px; align-items:center; }
     .btn { padding:8px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:600; font-family:'Tajawal', sans-serif; }
-    .btn.primary { background: linear-gradient(45deg, #ff7b1a, #ffa500); color:#fff; }
+    .btn.primary { background: linear-gradient(45deg, #1a63ff, #4a90e2); color:#fff; }
     .btn.secondary { background:#eef1f4; color:#333; }
+    .btn.danger { background: linear-gradient(45deg, #dc3545, #c82333); color:#fff; }
     .empty { background:#fff; border:1px dashed #e0e0e0; border-radius:14px; padding:20px; text-align:center; color:#6c757d; }
     .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .pagination-info { color: #666; font-size: 14px; }
     .pagination-buttons { display: flex; align-items: center; gap: 12px; }
     .page-numbers { display: flex; gap: 8px; }
     .page-number { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-size: 14px; background: #fff; }
-    .page-number.active { background: linear-gradient(45deg, #ff7b1a, #ffa500); color: #fff; border-color: #ff7b1a; }
+    .page-number.active { background: linear-gradient(45deg, #1a63ff, #4a90e2); color: #fff; border-color: #1a63ff; }
     .page-number:hover:not(.active) { background: #f8f9fa; }
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; }
     .modal-overlay.open { display: flex; }

@@ -65,15 +65,56 @@ async function handleLogin(e) {
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
         
+        console.log('Auth system ready, attempting login...');
+        console.log('Email:', email);
+        console.log('Auth object:', window.auth);
+        
         const result = await window.auth.signIn(email, password);
+        
+        console.log('Login result:', result);
+        console.log('Result success:', result.success);
+        console.log('Result error:', result.error);
+        console.log('Result message:', result.message);
         
         if (result.success) {
             showMessage('Logged in successfully!', 'success');
+            console.log('Login successful, preparing redirect...');
+            
+            // Check if we're already on the right page
+            const currentPath = window.location.pathname;
+            console.log('Current path:', currentPath);
+            
+            // Determine the correct path to user.html
+            let redirectPath = '../../user.html';
+            
+            // More specific path detection
+            if (currentPath.includes('/pages/auth/')) {
+                redirectPath = '../../user.html';  // From pages/auth/ to root
+            } else if (currentPath.includes('/pages/')) {
+                redirectPath = '../user.html';     // From pages/ to root
+            } else if (currentPath.endsWith('/') || currentPath === '/') {
+                redirectPath = 'user.html';        // From root
+            } else {
+                redirectPath = '../../user.html';  // Default fallback
+            }
+            
+            console.log('Current path analysis:');
+            console.log('- Current path:', currentPath);
+            console.log('- Contains /pages/auth/:', currentPath.includes('/pages/auth/'));
+            console.log('- Contains /pages/:', currentPath.includes('/pages/'));
+            console.log('- Selected redirect path:', redirectPath);
+            
+            console.log('Redirecting to:', redirectPath);
+            
             setTimeout(() => {
-                window.location.href = '../../user.html';
+                console.log('Executing redirect to:', redirectPath);
+                window.location.href = redirectPath;
             }, 1500);
         } else {
-            showMessage(result.message, 'error');
+            console.error('Login failed:', result);
+            console.error('Error details:', result.error);
+            console.error('Error message:', result.message);
+            showMessage(result.message || 'Login failed. Please try again.', 'error');
         }
     } catch (error) {
         console.error('Login error:', error);
@@ -358,7 +399,7 @@ if (typeof module !== 'undefined' && module.exports) {
         showMessage,
         validateEmail,
         validatePassword,
-        showFieldErr  or,
+        showFieldError,
         removeFieldError
     };
 }   
