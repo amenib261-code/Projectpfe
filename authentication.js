@@ -1,6 +1,7 @@
 // Supabase Configuration
 // IMPORTANT: Replace these with your actual Supabase project URL and anon key
 // You can find these in your Supabase project dashboard under Settings > API
+// Note: These values are now also available in config.js for consistency
 const SUPABASE_URL = 'https://lzlqxwwhjveyfhgopdph.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6bHF4d3doanZleWZoZ29wZHBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk1NjY5NTYsImV4cCI6MjA2NTE0Mjk1Nn0.VFzjDx1WSS03cM97vKHZAAR8vdheRtKC9wPBEoSQBxY';
 
@@ -25,11 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeSupabase() {
     console.log('Checking if Supabase is available...');
+    console.log('window.supabase:', typeof window.supabase);
+    console.log('SUPABASE_URL:', SUPABASE_URL);
+    console.log('SUPABASE_ANON_KEY:', SUPABASE_ANON_KEY ? 'Present' : 'Missing');
+    
     // Check if Supabase is available
     if (typeof window.supabase !== 'undefined') {
         console.log('Supabase is available, creating client...');
         try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Supabase client created successfully:', supabaseClient);
             initializeAuth();
         } catch (error) {
             console.error('Error creating Supabase client:', error);
@@ -498,4 +504,94 @@ function initializeAuth() {
     };
     
     console.log('Authentication system initialized and ready!', window.auth);
+    
+    // Create test account for verification (only if not recently attempted)
+    if (!localStorage.getItem('testAccountAttempted')) {
+        createTestAccount();
+    } else {
+        console.log('Test account creation skipped (already attempted recently)');
+        console.log('Test account credentials:');
+        console.log('Email: test@example.com');
+        console.log('Password: test123456');
+    }
+    
+    // Add global test function for debugging
+    window.testLogin = async function(email = 'test@example.com', password = 'test123456') {
+        console.log('Testing login with:', email);
+        try {
+            const result = await window.auth.signIn(email, password);
+            console.log('Test login result:', result);
+            return result;
+        } catch (error) {
+            console.error('Test login error:', error);
+            return { success: false, error: error.message };
+        }
+    };
+    
+    console.log('Test function available: window.testLogin()');
+    console.log('Reset test account creation: window.resetTestAccount()');
+    
+    // Add global function to reset test account creation
+    window.resetTestAccount = function() {
+        localStorage.removeItem('testAccountAttempted');
+        console.log('Test account creation flag reset. Refresh the page to create test account again.');
+    };
+}
+
+// Function to create a test account for verification
+async function createTestAccount() {
+    try {
+        console.log('Creating test account for verification...');
+        
+        const testEmail = 'test@example.com';
+        const testPassword = 'test123456';
+        const testFullName = 'Test User';
+        const testPhone = '1234567890';
+        const testClass = 'bac';
+        const testBranch = 'informatique';
+        
+        // Create test user (will fail if already exists, which is fine)
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: testEmail,
+            password: testPassword,
+            options: {
+                data: {
+                    fullname: testFullName,
+                    phone: testPhone,
+                    userClass: testClass,
+                    userBranch: testBranch
+                }
+            }
+        });
+        
+        if (error) {
+            if (error.message && error.message.includes('already registered')) {
+                console.log('Test account already exists:', testEmail);
+            } else if (error.message && error.message.includes('rate limit')) {
+                console.log('Rate limit reached - test account may already exist');
+                console.log('This is normal if you\'ve refreshed the page multiple times');
+            } else {
+                console.error('Error creating test account:', error);
+            }
+        } else {
+            console.log('Test account created successfully!');
+        }
+        
+        // Mark that we've attempted to create the test account
+        localStorage.setItem('testAccountAttempted', 'true');
+        
+        console.log('Test account credentials:');
+        console.log('Email:', testEmail);
+        console.log('Password:', testPassword);
+        console.log('You can now login with these credentials.');
+        
+    } catch (error) {
+        console.error('Error in createTestAccount:', error);
+        if (error.message && error.message.includes('rate limit')) {
+            console.log('Rate limit reached - this is normal after multiple page refreshes');
+        }
+        console.log('Test account credentials (may already exist):');
+        console.log('Email: test@example.com');
+        console.log('Password: test123456');
+    }
 }
